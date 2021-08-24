@@ -7,17 +7,17 @@
       app
       color="white"
     >
-      <v-row wrap>
-        <v-col offset-sm="2" sm="4" cols="12">
+      <v-row>
+        <v-col offset-sm="1" sm="2" cols="12">
           <router-link to="#" class="links f1">
             FireBlogs
           </router-link>
         </v-col>
-      </v-row>
+        <!-- </v-row> -->
 
-      <v-spacer></v-spacer>
-      <v-row>
-        <v-col offset-sm="4" sm="8" cols="12">
+        <!-- <v-spacer></v-spacer> -->
+        <!-- <v-row> -->
+        <v-col offset-sm="6" sm="3" cols="2">
           <router-link to="#" class="links">
             Home
           </router-link>
@@ -44,9 +44,10 @@ export default {};
 // }
 
 .links {
-  padding: 0px 25px !important;
   text-decoration: none;
-
+  &:nth-child(2) {
+    padding: 0px 30px !important;
+  }
   &:hover {
     color: #1eb8b8;
   }

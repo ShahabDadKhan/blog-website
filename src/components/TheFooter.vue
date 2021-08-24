@@ -7,7 +7,7 @@
             <span class="white--text">FireBlogs</span>
           </router-link>
         </v-row>
-        <v-row class="">
+        <v-row class="mt-16">
           <router-link to="#" class="mr-4">
             <v-icon class="white--text">mdi-instagram</v-icon>
           </router-link>
@@ -22,12 +22,12 @@
           </router-link>
         </v-row>
       </v-col>
-      <v-col sm="2" cols="12" class="d-flex flex-column">
-        <ul>
-          <li>Home</li>
-          <li>Blogs</li>
-          <li>Login/Register</li>
-        </ul>
+      <v-col sm="2" cols="12 " class="d-flex flex-column">
+        <!-- <ul> -->
+        <li>Home</li>
+        <li>Blogs</li>
+        <li>Login/Register</li>
+        <!-- </ul> -->
       </v-col>
       <v-col offset-sm="3" sm="3" cols="12">
         <span>
@@ -47,7 +47,7 @@ export default {};
 //   height: 30%;
 // }
 
-ul li {
+li {
   cursor: pointer;
   // margin: 15px 0px;
   text-transform: uppercase;
