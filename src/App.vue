@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navigation />
-    <v-main>
+    <v-main class="pa-0">
       <router-view />
     </v-main>
     <the-footer />
@@ -27,12 +27,11 @@ export default {
 //   max-width: 1440px;
 // }
 
-v-app-bar {
-  height: 90px;
-}
+// v-app-bar {
+//   height: 90px;
+// }
 
-.f1 {
-  font-size: 24px;
-  font-weight: 600;
-}
+// .v-main {
+//   padding: 0px;
+// }
 </style>

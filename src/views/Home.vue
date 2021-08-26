@@ -1,6 +1,7 @@
 <template>
   <div>
-    <blog-post :post="welcomeScreen" />
+    <the-welcome-screen :post="welcomeScreen" />
+    <!-- <blog-post /> -->
     <blog-post
       :post="post"
       v-for="(post, index) in sampleBlogPosts"
@@ -11,6 +12,7 @@
 
 <script>
 import BlogPost from "../components/BlogPost.vue";
+import TheWelcomeScreen from "../components/TheWelcomeScreen.vue";
 
 export default {
   name: "Home",
@@ -26,23 +28,26 @@ export default {
       sampleBlogPosts: [
         {
           title: "First",
+          number: "1",
           blogHTML:
             "Weekly blog articles with all things programming including HTML, CSS, JAVASCRIPT and more. Register today to never miss a post",
           // welcomeScreen: true,
-          blogCoverPhoto: "First photo",
+          blogCoverPhoto: "beautiful-stories",
         },
         {
           title: "Second",
+          number: "2",
           blogHTML:
             "Weekly blog articles with all things programming including HTML, CSS, JAVASCRIPT and more. Register today to never miss a post",
           // welcomeScreen: true,
-          blogCoverPhoto: "Second photo",
+          blogCoverPhoto: "designed-for-everyone",
         },
       ],
     };
   },
   components: {
     BlogPost,
+    TheWelcomeScreen,
   },
 };
 </script>

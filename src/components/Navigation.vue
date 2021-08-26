@@ -1,14 +1,15 @@
 <template>
   <!-- <div class="container"> -->
-  <v-container>
+  <v-container fluid style="height:100px">
     <v-app-bar
       height="100px"
       style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);"
       app
+      hide-on-scroll
       color="white"
     >
       <v-row>
-        <v-col offset-md="1" md="2" sm="12" cols="12">
+        <v-col class="f1" offset-md="1" md="2" sm="12" cols="12">
           <router-link to="#" class="links f1">
             FireBlogs
           </router-link>
@@ -17,7 +18,7 @@
 
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-row> -->
-        <v-col offset-md="6" md="3" sm="12" cols="12">
+        <v-col class="f2" offset-md="6" md="3" sm="12" cols="12">
           <router-link to="#" class="links">
             Home
           </router-link>
@@ -45,6 +46,7 @@ export default {};
 
 .links {
   text-decoration: none;
+  // transition: 5s ease-in hover;
   &:nth-child(2) {
     padding: 0px 30px !important;
   }
@@ -52,5 +54,15 @@ export default {};
   &:focus {
     color: #1eb8b8;
   }
+}
+
+.f1 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.f2 {
+  font-size: 18px;
+  font-weight: 500;
 }
 </style>

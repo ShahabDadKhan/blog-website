@@ -2,43 +2,32 @@
   <v-container fluid>
     <v-row>
       <!-- <v-col offset-sm="1" sm="4" cols="12" align-self="center" class="content"> -->
-      <v-col
-        class="d-flex blog-content"
-        :order-sm="post.number % 2 == 0 ? 1 : 2"
-        sm="5"
-      >
-        <div class="content background--text">
-          <!-- <h2 v-if="post.welcomeScreen">{{ post.title }}</h2> -->
+      <v-col class="d-flex blog-content" sm="5" order-sm="1">
+        <div class="content white--text">
           <h2>{{ post.title }}</h2>
-          <!-- <p style="width:70%" v-if="post.welcomeScreen">{{ post.blogPost  -->
-          <p style="width:70%">{{ post.blogHTML }}</p>
-          <!-- <router-link class="link" v-if="post.welcomeScreen" to="#"
-            >Login/Register <v-icon color="">mdi-arrow-right</v-icon>
-          </router-link> -->
-          <router-link class="link link-light" to="#">
-            View The Post <v-icon color="">mdi-arrow-right</v-icon>
+          <!-- <h2 v-else>{{ post.title }}</h2> -->
+          <p style="width:70%">{{ post.blogPost }}</p>
+          <!-- <p style="width:70%" v-else>{{ post.blogHTML }}</p> -->
+          <router-link class="link" to="#"
+            >Login/Register <v-icon color="white">mdi-arrow-right</v-icon>
           </router-link>
+          <!-- <router-link class="link link-light" v-else to="#">
+            View The Post <v-icon color="">mdi-arrow-right</v-icon>
+          </router-link> -->
         </div>
       </v-col>
-      <v-col
-        class="pa-0 blog-image"
-        :order-sm="post.number % 2 == 0 ? 2 : 1"
-        sm="7"
-        cols="12"
-      >
-        <!-- <v-img
-          height="100%"
-          width="100%"
-          v-if="post.welcomeScreen"
-          :src="require(`../assets/blogPhotos/${post.photo}.jpg`)"
-          alt=""
-        /> -->
+      <v-col class="pa-0 blog-image" sm="7" cols="12" order-sm="2">
         <v-img
           height="100%"
           width="100%"
-          :src="require(`../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)"
+          :src="require(`../assets/blogPhotos/${post.photo}.jpg`)"
           alt=""
         />
+        <!-- <v-img
+          v-else
+          :src="require(`../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)"
+          alt=""
+        /> -->
       </v-col>
     </v-row>
   </v-container>
@@ -74,7 +63,7 @@ export default {
   }
 
   &:hover {
-    border-bottom-color: #303030;
+    border-bottom-color: #fff;
     // animation: linkBorder 2s 1;
   }
   // &-light {
@@ -118,9 +107,16 @@ p {
   flex-direction: column;
   padding: 80px;
   justify-content: center;
-  background-color: white;
+  background-color: #303030;
 }
 
+// .row {
+//   padding: 0px;
+// }
+
+.col {
+  padding: 0px;
+}
 .blog-content {
   @media only screen and (max-width: 1400px) {
     // width: 50%;
@@ -134,21 +130,6 @@ p {
     order: 1;
   }
 }
-
-// .row {
-//   padding: 0px;
-// }
-
-.col {
-  padding: 0px;
-}
-// .blog-container {
-//   order: 2;
-// }
-
-// .blog-photo {
-//   order: 1;
-// }
 // .blog-wrapper {
 //   &:nth-child(even) {
 //     .blog-container {
