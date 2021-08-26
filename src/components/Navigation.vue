@@ -9,7 +9,7 @@
       color="white"
     >
       <v-row>
-        <v-col class="f1" offset-md="1" md="2" sm="12" cols="12">
+        <v-col class="f1" offset-md="1" md="2" sm="12" cols="10">
           <router-link to="#" class="links f1">
             FireBlogs
           </router-link>
@@ -18,7 +18,7 @@
 
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-row> -->
-        <v-col class="f2" offset-md="6" md="3" sm="12" cols="12">
+        <v-col class="f2" offset-md="6" md="3" sm="12" cols="10">
           <router-link to="#" class="links">
             Home
           </router-link>
@@ -58,7 +58,7 @@ export default {};
 
 .f1 {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .f2 {
