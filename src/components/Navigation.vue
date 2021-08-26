@@ -8,7 +8,7 @@
       color="white"
     >
       <v-row>
-        <v-col offset-sm="1" sm="2" cols="12">
+        <v-col offset-md="1" md="2" sm="12" cols="12">
           <router-link to="#" class="links f1">
             FireBlogs
           </router-link>
@@ -17,7 +17,7 @@
 
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-row> -->
-        <v-col offset-sm="6" sm="3" cols="2">
+        <v-col offset-md="6" md="3" sm="12" cols="12">
           <router-link to="#" class="links">
             Home
           </router-link>
@@ -48,7 +48,8 @@ export default {};
   &:nth-child(2) {
     padding: 0px 30px !important;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     color: #1eb8b8;
   }
 }

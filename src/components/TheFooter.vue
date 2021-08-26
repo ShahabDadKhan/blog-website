@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="primary d-flex align-center white--text">
-    <v-row align="center" style="height:300px">
+    <v-row align="center" class="footer" style="height:300px">
       <v-col offset-sm="1" cols="12" sm="3" class="d-flex flex-column  ">
         <v-row class="f1">
           <router-link to="#" class="mr-4">
@@ -42,9 +42,13 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // .container {
-//   height: 30%;
+// height: 30%;
+// @media only screen and (max-width: 600px) {
+//   // display: block;
+//   text-align: center;
+// }
 // }
 
 li {
@@ -55,6 +59,21 @@ li {
 
   &:nth-last-child(2) {
     margin: 15px 0px;
+  }
+}
+.footer {
+  @media only screen and (max-width: 600px) {
+    // display: block;
+    text-align: center;
+  }
+}
+.row {
+  @media only screen and (max-width: 600px) {
+    display: block;
+    &:last-child {
+      margin-top: 40px !important;
+      // text-align: center;
+    }
   }
 }
 </style>
