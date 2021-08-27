@@ -23,6 +23,9 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  font-family: "Quicksand", sans-serif;
+}
 // .container {
 //   max-width: 1440px;
 // }

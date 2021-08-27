@@ -49,7 +49,7 @@ export default {
 // }
 
 .link {
-  width: 140px;
+  width: 150px;
   // background-color: red;
   color: inherit;
   text-decoration: none;
@@ -105,9 +105,15 @@ p {
 .content {
   display: flex;
   flex-direction: column;
-  padding: 80px;
+  // padding-left: 150px;
+  padding: 80px 80px 80px 150px;
   justify-content: center;
   background-color: #303030;
+  @media only screen and (max-width: 900px) {
+    // width: 50%;
+    // order: 2;
+    padding: 50px 50px 50px 70px;
+  }
 }
 
 // .row {
@@ -118,6 +124,7 @@ p {
   padding: 0px;
 }
 .blog-content {
+  // padding-left: 200px;
   @media only screen and (max-width: 1400px) {
     // width: 50%;
     order: 2;

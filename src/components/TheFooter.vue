@@ -4,7 +4,7 @@
       <v-col offset-sm="1" cols="12" sm="3" class="d-flex flex-column  ">
         <v-row class="f1">
           <router-link to="#" class="mr-4">
-            <span class="white--text">FireBlogs</span>
+            <h1 class="white--text">FireBlogs</h1>
           </router-link>
         </v-row>
         <v-row class="mt-16">

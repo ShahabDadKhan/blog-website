@@ -15,7 +15,7 @@
           <!-- <router-link class="link" v-if="post.welcomeScreen" to="#"
             >Login/Register <v-icon color="">mdi-arrow-right</v-icon>
           </router-link> -->
-          <router-link class="link link-light" to="#">
+          <router-link class="link" to="#">
             View The Post <v-icon color="">mdi-arrow-right</v-icon>
           </router-link>
         </div>
@@ -61,6 +61,7 @@ export default {
 
 .link {
   width: 140px;
+  font-weight: 500;
   // background-color: red;
   color: inherit;
   text-decoration: none;
@@ -101,14 +102,14 @@ export default {
 
 h2 {
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 400;
   // color: white;
   text-transform: uppercase;
   margin-bottom: 24px;
 }
 p {
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1.7;
   // color: white;
 }

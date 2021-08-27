@@ -1,40 +1,20 @@
 <template>
-  <!-- <v-container fluid> -->
   <div>
     <the-welcome-screen :post="welcomeScreen" />
-    <!-- <blog-post /> -->
     <blog-post
       :post="post"
       v-for="(post, index) in sampleBlogPosts"
       :key="index"
     />
-    <!-- <div class="blog-card-wrap">
-      <div class="container">
-        <h3>View More Recent Blogs</h3>
-        <div class="blog-card">
-          <blog-card v-for="(post, index) in sampleBlogCards" :key="index" />
-        </div>
-      </div>
-    </div> -->
-    <!-- <v-container fluid> -->
-    <!-- <v-row> -->
-    <!-- <v-col sm="12">
-        </v-col> -->
-    <!-- <v-col sm="2"> -->
-    <div style="width:100%">
-      <!-- <h3>View More Recent Blogs</h3> -->
-      <blog-card :post="sampleBlogCards" />
-    </div>
-    <!-- </v-col>
-      </v-row>
-    </v-container> -->
+    <blog-card :post="sampleBlogCards" />
+    <second-last-footer />
   </div>
-  <!-- </v-container> -->
 </template>
 
 <script>
 import BlogPost from "../components/BlogPost.vue";
 import BlogCard from "../components/BlogCard.vue";
+import SecondLastFooter from "../components/SecondLastFooter.vue";
 import TheWelcomeScreen from "../components/TheWelcomeScreen.vue";
 
 export default {
@@ -94,6 +74,7 @@ export default {
     BlogPost,
     TheWelcomeScreen,
     BlogCard,
+    SecondLastFooter,
   },
 };
 </script>

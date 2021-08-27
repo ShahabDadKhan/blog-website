@@ -14,12 +14,26 @@
         sm="4"
         md="2"
       >
-        <v-card style="min-height: 380px;">
+        <v-card style="min-height: 365px;">
           <v-img
             contain
             :src="require(`../assets/blogCards/${blog.blogCoverPhoto}.jpg`)"
             alt=""
-          ></v-img>
+          >
+            <!-- <v-chip link class="iconChip-1"> </v-chip> -->
+            <v-avatar size="36" class="iconChip-1">
+              <a href="#" style="text-decoration:none">
+                <v-icon>mdi-pencil</v-icon>
+              </a>
+            </v-avatar>
+            <v-avatar size="36" class="iconChip-2">
+              <a href="#" style="text-decoration:none">
+                <v-icon>
+                  mdi-delete
+                </v-icon>
+              </a>
+            </v-avatar>
+          </v-img>
 
           <v-card-title>
             <h4>{{ blog.blogTitle }}</h4>
@@ -28,10 +42,10 @@
           <v-card-subtitle>
             <h6>Posted on:{{ blog.blogDate }}</h6>
           </v-card-subtitle>
-          <v-spacer></v-spacer>
-          <v-card-actions class="mt-16">
+          <!-- <v-spacer></v-spacer> -->
+          <v-card-actions class="pa-5 mt-8">
             <router-link class="link" to="#">
-              View The Post <v-icon color="">mdi-arrow-right</v-icon>
+              View The Post <v-icon color="grey">mdi-arrow-right</v-icon>
             </router-link>
           </v-card-actions>
         </v-card>
@@ -48,6 +62,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-icon {
+  color: aqua;
+}
+
+.iconChip-1 {
+  position: absolute;
+  background-color: #fff !important;
+  // background-color: #fff;
+  // color: #fff;
+  top: 5px;
+  right: 5px;
+  &:hover {
+    background-color: #303030 !important;
+    color: #fff !important;
+  }
+}
+
+.iconChip-2 {
+  position: absolute;
+  background-color: #fff !important;
+  top: 5px;
+  right: 48px;
+  &:hover {
+    background-color: #303030 !important;
+    color: #fff !important;
+  }
+}
+
 .blog-card {
   cursor: pointer;
   transition: 0.5s all ease;
@@ -94,6 +136,7 @@ h3 {
   font-weight: 500;
   line-height: 1;
   margin-bottom: 32px;
+  font-family: Quicksand;
 }
 
 h4 {
@@ -103,8 +146,8 @@ h4 {
 }
 
 h6 {
-  font-size: 12px;
-  font-weight: 400;
-  padding: 16px 0px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 20px 0px;
 }
 </style>
