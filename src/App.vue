@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <navigation />
+    <navigation v-if="!navigation" />
     <v-main class="pa-0">
       <router-view />
     </v-main>
-    <the-footer />
+    <the-footer v-if="!navigation" />
   </v-app>
 </template>
 
@@ -17,8 +17,29 @@ export default {
   name: "App",
 
   data: () => ({
-    //
+    navigation: null,
   }),
+  mounted() {
+    this.checkRout();
+  },
+  methods: {
+    checkRout() {
+      if (
+        this.$route.name === "Login" ||
+        this.$route.name === "Register" ||
+        this.$route.name === "ForgotPassword"
+      ) {
+        this.navigation = true;
+        return;
+      }
+      this.navigation = false;
+    },
+  },
+  watch: {
+    $route() {
+      this.checkRout();
+    },
+  },
 };
 </script>
 

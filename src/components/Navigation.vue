@@ -10,7 +10,7 @@
     >
       <v-row>
         <v-col class="f1" offset-md="1" md="2" sm="12" cols="10">
-          <router-link to="#" class="links f1">
+          <router-link to="/" class="links f1">
             FireBlogs
           </router-link>
         </v-col>
@@ -19,10 +19,10 @@
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-row> -->
         <v-col class="f2" offset-md="6" md="3" sm="12" cols="10">
-          <router-link to="#" class="links">
+          <router-link to="/" class="links">
             Home
           </router-link>
-          <router-link to="#" class="links">
+          <router-link to="/blogs" class="links">
             Blogs
           </router-link>
           <router-link to="#" class="links">

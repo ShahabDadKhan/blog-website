@@ -1,11 +1,6 @@
 <template>
   <v-container fluid class="container">
     <v-row justify="center">
-      <v-col sm="10" offset-sm="1" cols="8" class="">
-        <!-- <div> -->
-        <h3 class="ml-4">View More Recent Blogs</h3>
-        <!-- </div> -->
-      </v-col>
       <v-col
         class="pa-0 ma-4 blog-card"
         v-for="(blog, index) in post"
@@ -21,12 +16,12 @@
             alt=""
           >
             <!-- <v-chip link class="iconChip-1"> </v-chip> -->
-            <v-avatar size="36" class="iconChip-1">
+            <v-avatar v-show="editPost" size="36" class="iconChip-1">
               <a href="#" style="text-decoration:none">
                 <v-icon>mdi-pencil</v-icon>
               </a>
             </v-avatar>
-            <v-avatar size="36" class="iconChip-2">
+            <v-avatar v-show="editPost" size="36" class="iconChip-2">
               <a href="#" style="text-decoration:none">
                 <v-icon>
                   mdi-delete
@@ -58,6 +53,11 @@
 export default {
   name: "blogCard",
   props: ["post"],
+  computed: {
+    editPost() {
+      return this.$store.state.editPost;
+    },
+  },
 };
 </script>
 
@@ -102,7 +102,7 @@ export default {
 }
 
 .container {
-  padding: 150px 0px;
+  // padding: 150px 0px;
   background-color: #f1f1f1;
 }
 
@@ -129,14 +129,6 @@ export default {
   //     border-bottom-color: #303030;
   //   }
   // }
-}
-
-h3 {
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1;
-  margin-bottom: 32px;
-  font-family: Quicksand;
 }
 
 h4 {

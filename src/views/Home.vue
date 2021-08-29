@@ -6,7 +6,16 @@
       v-for="(post, index) in sampleBlogPosts"
       :key="index"
     />
-    <blog-card :post="sampleBlogCards" />
+    <div class="blogs">
+      <v-container fluid>
+        <v-row justify="left">
+          <v-col sm="8" offset-sm="1" cols="12">
+            <h3 class="">View More Recent Blogs</h3>
+          </v-col>
+          <blog-card :post="sampleBlogCards" />
+        </v-row>
+      </v-container>
+    </div>
     <second-last-footer />
   </div>
 </template>
@@ -46,29 +55,12 @@ export default {
           blogCoverPhoto: "designed-for-everyone",
         },
       ],
-      sampleBlogCards: [
-        {
-          blogTitle: "Blog Card #1",
-          blogCoverPhoto: "stock-1",
-          blogDate: "1 May, 2021",
-        },
-        {
-          blogTitle: "Blog Card #2",
-          blogCoverPhoto: "stock-2",
-          blogDate: "1 May, 2021",
-        },
-        {
-          blogTitle: "Blog Card #3",
-          blogCoverPhoto: "stock-3",
-          blogDate: "1 May, 2021",
-        },
-        {
-          blogTitle: "Blog Card #4",
-          blogCoverPhoto: "stock-4",
-          blogDate: "1 May, 2021",
-        },
-      ],
     };
+  },
+  computed: {
+    sampleBlogCards() {
+      return this.$store.state.sampleBlogCards;
+    },
   },
   components: {
     BlogPost,
@@ -79,4 +71,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.blogs {
+  padding: 150px 0px;
+  background-color: #f1f1f1;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 32px;
+  // margin-left: 20px;
+  margin-left: 8%;
+}
+</style>
