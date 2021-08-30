@@ -25,7 +25,7 @@
           <router-link to="/blogs" class="links">
             Blogs
           </router-link>
-          <router-link to="#" class="links">
+          <router-link to="/login" class="links">
             Login/Register
           </router-link>
         </v-col>
