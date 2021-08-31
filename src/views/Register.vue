@@ -14,7 +14,7 @@
         <form>
           <v-text-field
             v-model="firstName"
-            :error-messages="nameErrors"
+            :error-messages="firstNameErrors"
             label="First Name"
             class=""
             filled
@@ -22,12 +22,12 @@
             outlined
             prepend-inner-icon="mdi-account"
             required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
+            @input="$v.firstName.$touch()"
+            @blur="$v.firstName.$touch()"
           ></v-text-field>
           <v-text-field
             v-model="lastName"
-            :error-messages="nameErrors"
+            :error-messages="lastNameErrors"
             label="Last Name"
             class=""
             filled
@@ -35,12 +35,12 @@
             outlined
             prepend-inner-icon="mdi-account"
             required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
+            @input="$v.lastName.$touch()"
+            @blur="$v.lastName.$touch()"
           ></v-text-field>
           <v-text-field
             v-model="userName"
-            :error-messages="nameErrors"
+            :error-messages="userNameErrors"
             label="Username"
             class=""
             filled
@@ -48,8 +48,8 @@
             outlined
             prepend-inner-icon="mdi-account"
             required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
+            @input="$v.userName.$touch()"
+            @blur="$v.userName.$touch()"
           ></v-text-field>
           <v-text-field
             v-model="email"
@@ -65,7 +65,7 @@
             @blur="$v.email.$touch()"
           ></v-text-field>
           <v-text-field
-            v-model="Password"
+            v-model="password"
             :type="show ? 'text' : 'password'"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :error-messages="passwordErrors"
@@ -77,8 +77,8 @@
             label="Password"
             required
             @click:append="show = !show"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
           ></v-text-field>
 
           <div class="text-center py-3 d-flex flex-column ">
@@ -89,7 +89,7 @@
                 large
                 min-width="110px"
                 rounded
-                @click="submit"
+                @click.prevent="register"
               >
                 SIGN UP
               </v-btn>
@@ -103,7 +103,15 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  minLength,
+  email,
+} from "vuelidate/lib/validators";
+import firebase from "firebase/app";
+import "firebase/auth";
+import db from "../firebase/firebaseInit";
 
 export default {
   mixins: [validationMixin],
@@ -115,15 +123,12 @@ export default {
     password: "",
     email: "",
     show: false,
-    // nameRules: [
-    //   (v) => !!v || "Name is required",
-    //   (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    // ],
   }),
   validations: {
-    // firstName: { required, minLength: minLength(6) },
-    name: { required, maxLength: maxLength(10) },
-    password: { required, maxLength: maxLength(6) },
+    firstName: { required, maxLength: maxLength(6) },
+    lastName: { required, maxLength: maxLength(10) },
+    userName: { required, maxLength: maxLength(10) },
+    password: { required, minLength: minLength(6) },
     email: { required, email },
     select: { required },
     checkbox: {
@@ -132,14 +137,33 @@ export default {
       },
     },
   },
+  // mounted() {
+  //   console.log(this.submit);
+  // },
 
   computed: {
-    nameErrors() {
+    firstNameErrors() {
       const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength &&
-        errors.push("Name must be at most 10 characters long");
-      !this.$v.name.required && errors.push("Name is required.");
+      if (!this.$v.firstName.$dirty) return errors;
+      !this.$v.firstName.maxLength &&
+        errors.push("Name must be at most 6 characters long");
+      !this.$v.firstName.required && errors.push("Name is required.");
+      return errors;
+    },
+    lastNameErrors() {
+      const errors = [];
+      if (!this.$v.lastName.$dirty) return errors;
+      !this.$v.lastName.maxLength &&
+        errors.push("Name must be at most 6 characters long");
+      !this.$v.lastName.required && errors.push("Name is required.");
+      return errors;
+    },
+    userNameErrors() {
+      const errors = [];
+      if (!this.$v.userName.$dirty) return errors;
+      !this.$v.userName.maxLength &&
+        errors.push("Name must be at most 6 characters long");
+      !this.$v.userName.required && errors.push("Name is required.");
       return errors;
     },
     emailErrors() {
@@ -152,14 +176,37 @@ export default {
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.maxLength &&
-        errors.push("password must be at most 6 characters long");
+      !this.$v.password.minLength &&
+        errors.push("password must be less characters long");
       !this.$v.password.required && errors.push("password is required.");
       return errors;
     },
   },
 
   methods: {
+    async register() {
+      if (
+        this.email !== "" &&
+        this.password !== "" &&
+        this.firstName !== "" &&
+        this.lastName !== "" &&
+        this.userName !== ""
+      ) {
+        // this.$v.$touch();
+        const result = await firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password);
+        const dataBase = db.collection("users").doc(result.user.uid);
+        await dataBase.set({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          userName: this.userName,
+          email: this.email,
+        });
+        this.$router.push("/");
+        return;
+      }
+    },
     submit() {
       this.$v.$touch();
     },
@@ -171,10 +218,6 @@ export default {
 ::v-deep input {
   margin-top: 0px !important;
 }
-
-// ::v-deep #input-24 {
-//   margin-top: 0px !important;
-// }
 
 h2 {
   font-size: 40px;

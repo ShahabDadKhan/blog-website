@@ -26,7 +26,7 @@
             @blur="$v.email.$touch()"
           ></v-text-field>
           <v-text-field
-            v-model="Password"
+            v-model="password"
             :type="show ? 'text' : 'password'"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :error-messages="passwordErrors"
@@ -38,8 +38,8 @@
             label="Password"
             required
             @click:append="show = !show"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
           ></v-text-field>
 
           <div class="text-center py-3 d-flex flex-column ">
@@ -55,7 +55,7 @@
                 large
                 min-width="110px"
                 rounded
-                @click="submit"
+                @click.prevent="signIn"
               >
                 SIGN IN
               </v-btn>
@@ -63,19 +63,54 @@
           </div>
         </form>
       </v-col>
+      <v-dialog
+        v-model="dialog"
+        transition="dialog-top-transition"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-text class="pa-16">
+            <span>
+              {{ errMsg }}
+            </span>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="dialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  minLength,
+  email,
+} from "vuelidate/lib/validators";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   mixins: [validationMixin],
 
+  data: () => ({
+    password: "",
+    email: "",
+    show: false,
+    dialog: false,
+    errMsg: "",
+  }),
+
   validations: {
-    password: { required, maxLength: maxLength(6) },
+    password: { required, minLength: minLength(6) },
     email: { required, email },
     select: { required },
     checkbox: {
@@ -84,12 +119,6 @@ export default {
       },
     },
   },
-
-  data: () => ({
-    password: "",
-    email: "",
-    show: false,
-  }),
 
   computed: {
     emailErrors() {
@@ -102,7 +131,7 @@ export default {
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.maxLength &&
+      !this.$v.password.minLength &&
         errors.push("password must be at most 6 characters long");
       !this.$v.password.required && errors.push("password is required.");
       return errors;
@@ -110,6 +139,19 @@ export default {
   },
 
   methods: {
+    signIn() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          // console.log(firebase.auth().currentUser);
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          this.dialog = true;
+          this.errMsg = err.message;
+        });
+    },
     submit() {
       this.$v.$touch();
     },

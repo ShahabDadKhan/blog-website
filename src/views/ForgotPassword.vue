@@ -22,25 +22,22 @@
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
           ></v-text-field>
-          <!-- <v-text-field
-            v-model="Password"
-            :type="show ? 'text' : 'password'"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :error-messages="passwordErrors"
-            outlined
-            filled
-            background-color="rgb(232, 240, 254)"
-            :counter="6"
-            prepend-inner-icon="mdi-lock"
-            label="Password"
-            required
-            @click:append="show = !show"
-            @input="$v.name.$touch()"
-            @blur="$v.name.$touch()"
-          ></v-text-field> -->
-
           <div class="text-center py-3 d-flex flex-column ">
+            <div class="mb-8 text-center">
+              <span>
+                Back to
+                <router-link to="/login" class="link">
+                  Login
+                </router-link>
+              </span>
+            </div>
             <div>
+              <!-- <v-progress-circular
+                :size="70"
+                :width="7"
+                indeterminate
+                color="purple"
+              ></v-progress-circular> -->
               <v-dialog transition="dialog-top-transition" max-width="600">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -51,19 +48,24 @@
                     rounded
                     v-bind="attrs"
                     v-on="on"
-                    @click="submit"
+                    @click.prevent="resetPassword"
                     >RESET</v-btn
                   >
                 </template>
                 <template v-slot:default="dialog">
-                  <v-card>
-                    <v-toolbar color="primary" dark
-                      >Opening from the top</v-toolbar
-                    >
-                    <v-card-text>
-                      <div class="text-h2 pa-12">Hello world!</div>
+                  <v-card class="text-center">
+                    <v-progress-circular
+                      class="pa-12 mt-15"
+                      v-if="loading"
+                      :size="70"
+                      :width="7"
+                      indeterminate
+                      color="purple"
+                    ></v-progress-circular>
+                    <v-card-text v-if="!loading">
+                      <div class="text-h6 pa-12">{{ modalMsg }}</div>
                     </v-card-text>
-                    <v-card-actions class="justify-end">
+                    <v-card-actions class="justify-center">
                       <v-btn text @click="dialog.value = false">Close</v-btn>
                     </v-card-actions>
                   </v-card>
@@ -91,11 +93,21 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
+
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   mixins: [validationMixin],
 
+  data: () => ({
+    // password: "",
+    loading: null,
+    modalMsg: "",
+    email: "",
+    // show: false,
+  }),
   validations: {
     // password: { required, maxLength: maxLength(6) },
     email: { required, email },
@@ -106,12 +118,6 @@ export default {
       },
     },
   },
-
-  data: () => ({
-    // password: "",
-    email: "",
-    // show: false,
-  }),
 
   computed: {
     emailErrors() {
@@ -132,6 +138,22 @@ export default {
   },
 
   methods: {
+    resetPassword() {
+      this.loading = true;
+      firebase
+        .auth()
+        .sendPasswordResetEmail(this.email)
+        .then(() => {
+          this.loading = false;
+          this.modalMsg = "If your email exists, you will receive a email";
+          this.email = "";
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.modalMsg = err.message;
+          this.email = "";
+        });
+    },
     submit() {
       this.$v.$touch();
     },

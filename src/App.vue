@@ -11,6 +11,8 @@
 <script>
 import Navigation from "./components/Navigation.vue";
 import TheFooter from "./components/TheFooter.vue";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   components: { Navigation, TheFooter },
@@ -19,10 +21,21 @@ export default {
   data: () => ({
     navigation: null,
   }),
-  mounted() {
+
+  created() {
+    // Updating the state of user in our store so as to know if the user is loged in or not
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit("updateUser", user);
+      if (user) {
+        this.$store.dispatch("getCurrentUser");
+        console.log("email", this.$store.state.profileEmail);
+        console.log("user1", user);
+      }
+    });
     this.checkRout();
   },
   methods: {
+    // checking the route to hide Navigation & Footer if we are on log in or registiration form
     checkRout() {
       if (
         this.$route.name === "Login" ||
