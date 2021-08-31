@@ -5,7 +5,7 @@
         <div class="mb-8 mt-10 text-center">
           <span>
             Don't have an account?
-            <router-link to="#" class="link">
+            <router-link to="/register" class="link">
               Register
             </router-link>
           </span>
@@ -16,29 +16,47 @@
             v-model="email"
             :error-messages="emailErrors"
             label="E-mail"
+            class=""
+            filled
+            background-color="rgb(232, 240, 254)"
+            outlined
+            prepend-inner-icon="mdi-email"
             required
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
           ></v-text-field>
           <v-text-field
             v-model="Password"
-            type="password"
+            :type="show ? 'text' : 'password'"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :error-messages="passwordErrors"
+            outlined
+            filled
+            background-color="rgb(232, 240, 254)"
             :counter="6"
+            prepend-inner-icon="mdi-lock"
             label="Password"
             required
+            @click:append="show = !show"
             @input="$v.name.$touch()"
             @blur="$v.name.$touch()"
           ></v-text-field>
 
           <div class="text-center py-3 d-flex flex-column ">
             <div>
-              <router-link to="#" class="link">
+              <router-link to="/forgot-password" class="link">
                 Forget Your Password?
               </router-link>
             </div>
             <div class="mt-7">
-              <v-btn style="width:25%" class="mr-4" @click="submit">
+              <v-btn
+                style="width:25%"
+                color="primary"
+                large
+                min-width="110px"
+                rounded
+                @click="submit"
+              >
                 SIGN IN
               </v-btn>
             </div>
@@ -70,6 +88,7 @@ export default {
   data: () => ({
     password: "",
     email: "",
+    show: false,
   }),
 
   computed: {
@@ -99,6 +118,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep input {
+  margin-top: 0px !important;
+}
+
+// ::v-deep #input-24 {
+//   margin-top: 0px !important;
+// }
+
 h2 {
   font-size: 40px;
   margin-bottom: 40px;

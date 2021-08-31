@@ -12,6 +12,7 @@ export default new Vuetify({
         accent: "#8c9eff",
         error: "#b71c1c",
         background: "#303030",
+        // textfieldBackground: "rgb(232, 240, 254)",
       },
     },
   },
