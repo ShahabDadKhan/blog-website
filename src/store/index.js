@@ -54,6 +54,7 @@ export default new Vuex.Store({
         (state.profileFirstName = doc.data().firstName),
         (state.profileLastName = doc.data().lastName),
         (state.profileUsername = doc.data().username);
+      // console.log("state name", this.profileFirstName);
     },
     setProfileInitials(state) {
       state.profileInitials =

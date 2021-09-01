@@ -196,7 +196,7 @@ export default {
         const result = await firebase
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password);
-        const dataBase = db.collection("users").doc(result.user.uid);
+        const dataBase = await db.collection("users").doc(result.user.uid);
         await dataBase.set({
           firstName: this.firstName,
           lastName: this.lastName,

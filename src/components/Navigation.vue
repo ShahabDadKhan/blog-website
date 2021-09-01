@@ -9,7 +9,7 @@
       color="white"
     >
       <v-row>
-        <v-col class="f1" offset-md="1" md="2" sm="12" cols="10">
+        <v-col class="f1" offset-sm="1" md="1" sm="2" cols="10">
           <router-link to="/" class="links f1">
             FireBlogs
           </router-link>
@@ -18,7 +18,16 @@
 
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-row> -->
-        <v-col class="f2" offset-md="6" md="3" sm="12" cols="10">
+        <v-col
+          align-self="start"
+          class="f2"
+          offset-sm="4"
+          offset-md="5"
+          offset-lg="6"
+          md="4"
+          sm="4"
+          cols="10"
+        >
           <router-link to="/" class="links">
             Home
           </router-link>
@@ -28,6 +37,37 @@
           <router-link to="/login" class="links">
             Login/Register
           </router-link>
+          <!-- <router-link to="#" class="links"> -->
+          <!-- <v-avatar color="primary" size="56"> -->
+          <div class="ml-5" style="width:50px; height:50px;">
+            <v-row justify="center" style="min-height: 160px;">
+              <v-col class="shrink">
+                <v-btn
+                  rounded
+                  height="50px"
+                  min-width="50px"
+                  class=""
+                  color="primary"
+                  @click="expand = !expand"
+                >
+                  SK
+                </v-btn>
+
+                <v-expand-transition>
+                  <v-card
+                    v-show="expand"
+                    height="150"
+                    min-width="150"
+                    class="mt-6 mr-16 secondary"
+                  ></v-card>
+                </v-expand-transition>
+              </v-col>
+
+              <!-- <div class="mx-4 hidden-sm-and-down"></div> -->
+            </v-row>
+          </div>
+          <!-- </v-avatar> -->
+          <!-- </router-link> -->
         </v-col>
       </v-row>
     </v-app-bar>
@@ -36,7 +76,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    expand: false,
+  }),
+};
 </script>
 
 <style lang="scss" scoped>
@@ -64,5 +108,8 @@ export default {};
 .f2 {
   font-size: 18px;
   font-weight: 500;
+
+  display: flex;
+  align-items: center;
 }
 </style>

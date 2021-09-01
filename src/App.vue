@@ -29,7 +29,7 @@ export default {
       if (user) {
         this.$store.dispatch("getCurrentUser");
         console.log("email", this.$store.state.profileEmail);
-        console.log("user1", user);
+        console.log("user1", this.$store.state.user);
       }
     });
     this.checkRout();
