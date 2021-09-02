@@ -8,7 +8,7 @@
           <!-- <h2 v-else>{{ post.title }}</h2> -->
           <p style="width:70%">{{ post.blogPost }}</p>
           <!-- <p style="width:70%" v-else>{{ post.blogHTML }}</p> -->
-          <router-link class="link" to="#"
+          <router-link class="link" to="/register"
             >Login/Register <v-icon color="white">mdi-arrow-right</v-icon>
           </router-link>
           <!-- <router-link class="link link-light" v-else to="#">

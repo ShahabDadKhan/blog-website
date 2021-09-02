@@ -5,7 +5,12 @@
         <h2>NEVER MISS A POST. REGISTER FOR YOUR FREE ACCOUNT TODAY!</h2>
       </v-col>
       <v-col offset-sm="3" cols="12" sm="3" class="d-flex justify-center">
-        <v-btn height="40" rounded color="black white--text" class="pa-2 mx-3"
+        <v-btn
+          height="40"
+          to="/register"
+          rounded
+          color="black white--text"
+          class="pa-2 mx-3"
           ><h4>REGISTER FOR FIREBLOG</h4>
           <v-icon size="20">mdi-arrow-right</v-icon></v-btn
         >

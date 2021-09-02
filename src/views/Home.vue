@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-welcome-screen :post="welcomeScreen" />
+    <the-welcome-screen v-show="!user" :post="welcomeScreen" />
     <blog-post
       :post="post"
       v-for="(post, index) in sampleBlogPosts"
@@ -16,7 +16,7 @@
         </v-row>
       </v-container>
     </div>
-    <second-last-footer />
+    <second-last-footer v-show="!user" />
   </div>
 </template>
 
@@ -60,6 +60,9 @@ export default {
   computed: {
     sampleBlogCards() {
       return this.$store.state.sampleBlogCards;
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
   components: {

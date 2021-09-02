@@ -30,7 +30,7 @@
         >
           <div class="mr-5" style="width:50px; height:50px;">
             <v-row justify="center" style="min-height: 160px;">
-              <v-col v-show="this.$store.state.user">
+              <v-col v-show="user">
                 <v-btn
                   rounded
                   height="50px"
@@ -46,7 +46,7 @@
                 <v-expand-transition>
                   <v-card
                     v-show="expand"
-                    height="150"
+                    height="180"
                     min-width="250"
                     class="mt-4 mr-16 secondary f3"
                   >
@@ -75,17 +75,20 @@
                     <v-row class="mt-1">
                       <!-- <div class="btn"> -->
                       <v-col cols="12" class="pa-0 mt-1 ml-6">
-                        <!-- <div>
-                          <router-link to="/" class="link">
-                            <v-icon class="mr-1 white--text"
-                              >mdi-account-tie</v-icon
-                            >
-                            Home
-                          </router-link>
-                        </div> -->
-                        <v-btn small plain class="pl-0 black--text">
+                        <v-btn
+                          small
+                          plain
+                          to="/profile"
+                          class="pl-0 black--text"
+                        >
                           <v-icon class="mr-1">mdi-account-tie</v-icon>
                           Profile</v-btn
+                        >
+                      </v-col>
+                      <v-col cols="12" class="pa-0 mt-1 ml-6">
+                        <v-btn small plain to="/admin" class="pl-0 black--text">
+                          <v-icon class="mr-1">mdi-crown</v-icon>
+                          Admin</v-btn
                         >
                       </v-col>
                       <!-- </div> -->
@@ -122,14 +125,10 @@
           <router-link to="/blogs" class="links">
             Blogs
           </router-link>
-          <router-link
-            v-show="!this.$store.state.user"
-            to="/login"
-            class="links"
-          >
+          <router-link v-show="!user" to="/login" class="links">
             Login/Register
           </router-link>
-          <router-link v-show="this.$store.state.user" to="/" class="links">
+          <router-link v-show="user" to="/" class="links">
             Create Blog
           </router-link>
           <!-- <router-link to="#" class="links"> -->
@@ -151,10 +150,17 @@ export default {
   data: () => ({
     expand: false,
   }),
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
   methods: {
     signOut() {
       firebase.auth().signOut();
       location.replace(location.href.split("#")[0]);
+      // location.reload();
+      // window.location = window.location;
       // window.location.reload;
     },
   },

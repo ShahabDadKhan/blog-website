@@ -67,7 +67,7 @@ export default {
   text-decoration: none;
   border-bottom: 1px solid transparent;
   border-bottom-right-radius: 50px;
-  transition: 0.4s ease-in all;
+  transition: 0.2s ease-in all;
   padding: 0px 4px 4px 0px;
 
   @media only screen and (max-width: 1400px) {
