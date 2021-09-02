@@ -21,32 +21,20 @@
         <v-col
           align-self="start"
           class="f2"
-          offset-sm="4"
+          offset-sm="1"
           offset-md="5"
           offset-lg="6"
           md="4"
-          sm="4"
-          cols="10"
+          sm="5"
+          cols="8"
         >
-          <router-link to="/" class="links">
-            Home
-          </router-link>
-          <router-link to="/blogs" class="links">
-            Blogs
-          </router-link>
-          <router-link to="/login" class="links">
-            Login/Register
-          </router-link>
-          <!-- <router-link to="#" class="links"> -->
-          <!-- <v-avatar color="primary" size="56"> -->
-          <div class="ml-5" style="width:50px; height:50px;">
+          <div class="mr-5" style="width:50px; height:50px;">
             <v-row justify="center" style="min-height: 160px;">
               <v-col class="shrink">
                 <v-btn
                   rounded
                   height="50px"
                   min-width="50px"
-                  class=""
                   color="primary"
                   @click="expand = !expand"
                 >
@@ -66,6 +54,18 @@
               <!-- <div class="mx-4 hidden-sm-and-down"></div> -->
             </v-row>
           </div>
+          <router-link to="/" class="links">
+            Home
+          </router-link>
+          <router-link to="/blogs" class="links">
+            Blogs
+          </router-link>
+          <router-link to="/login" class="links">
+            Login/Register
+          </router-link>
+          <!-- <router-link to="#" class="links"> -->
+          <!-- <v-avatar color="primary" size="56"> -->
+
           <!-- </v-avatar> -->
           <!-- </router-link> -->
         </v-col>
@@ -84,32 +84,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .container {
-//   min-width: 1500px;
-// }
-
 .links {
   text-decoration: none;
-  // transition: 5s ease-in hover;
-  &:nth-child(2) {
-    padding: 0px 30px !important;
-  }
+  padding: 0px 15px !important;
   &:hover,
   &:focus {
     color: #1eb8b8;
+  }
+  @media (max-width: 360px) {
+    padding: 0px 5px !important;
   }
 }
 
 .f1 {
   font-size: 24px;
   font-weight: 600;
+  @media (max-width: 600px) {
+    margin-top: 15px !important;
+    margin-bottom: 0px !important;
+  }
 }
 
 .f2 {
   font-size: 18px;
   font-weight: 500;
-
   display: flex;
   align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0px 0px 25px 15px !important;
+    // margin: 20px !important;
+    padding: 0px;
+  }
 }
 </style>
