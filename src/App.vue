@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <navigation v-if="!navigation" />
     <v-main class="pa-0">
+      <navigation v-if="!navigation" />
       <router-view />
+      <the-footer v-if="!navigation" />
     </v-main>
-    <the-footer v-if="!navigation" />
   </v-app>
 </template>
 

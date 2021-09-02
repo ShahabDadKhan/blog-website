@@ -140,21 +140,25 @@ export default {
 
   methods: {
     signIn() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          // console.log(firebase.auth().currentUser);
-          this.$router.push("/");
-        })
-        .catch((err) => {
-          this.dialog = true;
-          this.errMsg = err.message;
-        });
+      if (this.email !== "" && this.password !== "") {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            // console.log(firebase.auth().currentUser);
+            this.$router.push("/");
+          })
+          .catch((err) => {
+            this.dialog = true;
+            this.errMsg = err.message;
+          });
+      } else {
+        this.$v.$touch();
+      }
     },
-    submit() {
-      this.$v.$touch();
-    },
+    // submit() {
+    //   this.$v.$touch();
+    // },
   },
 };
 </script>

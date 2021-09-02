@@ -35,7 +35,7 @@ export default new Vuex.Store({
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
-    profileUsername: null,
+    profileUserName: null,
     profileId: null,
     profileInitials: null,
   },
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         (state.profileEmail = doc.data().email),
         (state.profileFirstName = doc.data().firstName),
         (state.profileLastName = doc.data().lastName),
-        (state.profileUsername = doc.data().username);
+        (state.profileUserName = doc.data().userName);
       // console.log("state name", this.profileFirstName);
     },
     setProfileInitials(state) {

@@ -30,24 +30,86 @@
         >
           <div class="mr-5" style="width:50px; height:50px;">
             <v-row justify="center" style="min-height: 160px;">
-              <v-col class="shrink">
+              <v-col v-show="this.$store.state.user">
                 <v-btn
                   rounded
                   height="50px"
                   min-width="50px"
-                  color="primary"
+                  color="primary font-bold"
                   @click="expand = !expand"
                 >
-                  SK
+                  {{ this.$store.state.profileInitials }}
                 </v-btn>
+
+                <!-- Profile details dropdown -->
 
                 <v-expand-transition>
                   <v-card
                     v-show="expand"
                     height="150"
-                    min-width="150"
-                    class="mt-6 mr-16 secondary"
-                  ></v-card>
+                    min-width="250"
+                    class="mt-4 mr-16 secondary f3"
+                  >
+                    <v-row align="center">
+                      <v-col cols="3">
+                        <!-- <div
+                          class="white black--text ml-2 d-flex justify-center align-center"
+                          style="width:100%; height:80%; border-radius:50%"
+                        > -->
+                        <v-avatar class="white ml-2">
+                          {{ this.$store.state.profileInitials }}
+                        </v-avatar>
+                        <!-- </div> -->
+                      </v-col>
+                      <v-col cols="8">
+                        <div>
+                          {{ this.$store.state.profileFirstName }}
+                          {{ this.$store.state.profileLastName }}
+                        </div>
+                        <!-- <p></p> -->
+                        <div>{{ this.$store.state.profileUserName }}</div>
+                        <div>{{ this.$store.state.profileEmail }}</div>
+                      </v-col>
+                    </v-row>
+                    <v-divider class="white mt-2"></v-divider>
+                    <v-row class="mt-1">
+                      <!-- <div class="btn"> -->
+                      <v-col cols="12" class="pa-0 mt-1 ml-6">
+                        <!-- <div>
+                          <router-link to="/" class="link">
+                            <v-icon class="mr-1 white--text"
+                              >mdi-account-tie</v-icon
+                            >
+                            Home
+                          </router-link>
+                        </div> -->
+                        <v-btn small plain class="pl-0 black--text">
+                          <v-icon class="mr-1">mdi-account-tie</v-icon>
+                          Profile</v-btn
+                        >
+                      </v-col>
+                      <!-- </div> -->
+                      <!-- <div class="btn"> -->
+                      <v-col cols="12" class="pa-0 mt-1 mb-2 ml-6">
+                        <!-- <div>
+                          <router-link to="/" class="link">
+                            <v-icon class="mr-1 white--text">mdi-logout</v-icon>
+                            Home
+                          </router-link>
+                        </div> -->
+                        <v-btn
+                          small
+                          plain
+                          @click="signOut"
+                          class="pl-0 black--text"
+                        >
+                          <v-icon class="mr-1">mdi-logout</v-icon> Sign
+                          Out</v-btn
+                        >
+                      </v-col>
+                      <!-- </div> -->
+                    </v-row>
+                  </v-card>
                 </v-expand-transition>
               </v-col>
 
@@ -60,8 +122,15 @@
           <router-link to="/blogs" class="links">
             Blogs
           </router-link>
-          <router-link to="/login" class="links">
+          <router-link
+            v-show="!this.$store.state.user"
+            to="/login"
+            class="links"
+          >
             Login/Register
+          </router-link>
+          <router-link v-show="this.$store.state.user" to="/" class="links">
+            Create Blog
           </router-link>
           <!-- <router-link to="#" class="links"> -->
           <!-- <v-avatar color="primary" size="56"> -->
@@ -76,10 +145,19 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
   data: () => ({
     expand: false,
   }),
+  methods: {
+    signOut() {
+      firebase.auth().signOut();
+      location.replace(location.href.split("#")[0]);
+      // window.location.reload;
+    },
+  },
 };
 </script>
 
@@ -95,6 +173,18 @@ export default {
     padding: 0px 5px !important;
   }
 }
+
+// .link {
+//   color: #fff;
+//   font-size: 14px;
+//   font-weight: 600;
+//   text-decoration: none;
+
+//   &:hover,
+//   :active {
+//     background-color: aqua;
+//   }
+// }
 
 .f1 {
   font-size: 24px;
@@ -117,6 +207,15 @@ export default {
     margin: 0px 0px 25px 15px !important;
     // margin: 20px !important;
     padding: 0px;
+  }
+}
+
+.f3 {
+  font-size: 12px;
+  font-weight: 500;
+  @media (max-width: 600px) {
+    margin-top: 15px !important;
+    margin-bottom: 0px !important;
   }
 }
 </style>

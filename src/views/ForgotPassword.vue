@@ -66,7 +66,16 @@
                       <div class="text-h6 pa-12">{{ modalMsg }}</div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
-                      <v-btn text @click="dialog.value = false">Close</v-btn>
+                      <v-btn
+                        text
+                        style="width:25%"
+                        color="primary"
+                        large
+                        min-width="110px"
+                        rounded
+                        @click="dialog.value = false"
+                        >Close</v-btn
+                      >
                     </v-card-actions>
                   </v-card>
                 </template>

@@ -205,11 +205,11 @@ export default {
         });
         this.$router.push("/");
         return;
+      } else {
+        this.$v.$touch();
       }
     },
-    submit() {
-      this.$v.$touch();
-    },
+    // submit() {},
   },
 };
 </script>
