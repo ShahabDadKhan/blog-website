@@ -31,15 +31,17 @@
           <div class="mr-5" style="width:50px; height:50px;">
             <v-row justify="center" style="min-height: 160px;">
               <v-col v-show="user">
-                <v-btn
-                  height="60px"
-                  min-width="60px"
-                  style="border-radius: 100%;"
-                  color="primary font-bold initial"
-                  @click="expand = !expand"
-                >
-                  {{ initials }}
-                </v-btn>
+                <v-avatar>
+                  <v-btn
+                    height="50px"
+                    rounded
+                    min-width="50px"
+                    color="primary initial"
+                    @click="expand = !expand"
+                  >
+                    {{ initials }}
+                  </v-btn>
+                </v-avatar>
 
                 <!-- Profile details dropdown -->
 
@@ -86,7 +88,12 @@
                         >
                       </v-col>
                       <v-col cols="12" class="pa-0 mt-1 ml-6">
-                        <v-btn small plain to="/admin" class="pl-0 black--text">
+                        <v-btn
+                          small
+                          plain
+                          @click="goToAdmin"
+                          class="pl-0 black--text"
+                        >
                           <v-icon class="mr-1">mdi-crown</v-icon>
                           Admin</v-btn
                         >
@@ -128,7 +135,7 @@
           <router-link v-show="!user" to="/login" class="links">
             Login/Register
           </router-link>
-          <router-link v-show="user" to="/" class="links">
+          <router-link v-show="user" to="/creat-post" class="links">
             Create Blog
           </router-link>
           <!-- <router-link to="#" class="links"> -->
@@ -191,6 +198,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .initial {
+//   font-size: 16px;
+//   font-weight: 400;
+// }
+
 .links {
   text-decoration: none;
   padding: 0px 15px !important;

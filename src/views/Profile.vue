@@ -19,7 +19,7 @@
       </v-btn>
     </v-snackbar>
     <div>
-      <p style="settings">Account Settings</p>
+      <p>Account Settings</p>
     </div>
     <v-card
       class="align-center justify-center text-center"

@@ -30,6 +30,12 @@ export default new Vuex.Store({
         blogDate: "1 May, 2021",
       },
     ],
+    blogHTML: "Write your blog title here...",
+    blogTitle: "",
+    blogPhotoName: "",
+    blogPhotoFileURL: null,
+    blogPhotoPreview: null,
+
     editPost: null,
     user: null,
     profileEmail: null,
@@ -40,6 +46,13 @@ export default new Vuex.Store({
     profileInitials: null,
   },
   mutations: {
+    newBlogPost(state, payload) {
+      state.blogHTML = payload;
+      console.log(state.blogHTML);
+    },
+    updateBlogTitle(state, payload) {
+      state.blogTitle = payload;
+    },
     updateUser(state, payload) {
       state.user = payload;
       console.log("user", this.user);
