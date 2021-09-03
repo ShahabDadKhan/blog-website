@@ -27,7 +27,7 @@
       height="100%"
     >
       <v-avatar size="60" class="pa-10 my-5 font-weight-bold black white--text">
-        SK
+        {{ profileInitials }}
       </v-avatar>
       <v-card-text class="text-left">
         First Name
@@ -38,8 +38,8 @@
           background-color="rgb(232, 240, 254)"
           outlined
           required
+          v-model="firstName"
         >
-          ronaldo
         </v-text-field>
       </v-card-subtitle>
 
@@ -52,6 +52,7 @@
           background-color="rgb(232, 240, 254)"
           outlined
           required
+          v-model="lastName"
         >
         </v-text-field>
       </v-card-subtitle>
@@ -65,6 +66,7 @@
           background-color="rgb(232, 240, 254)"
           outlined
           required
+          v-model="userName"
         >
         </v-text-field>
       </v-card-subtitle>
@@ -77,7 +79,9 @@
           filled
           background-color="rgb(232, 240, 254)"
           outlined
+          disabled
           required
+          v-model="email"
         >
         </v-text-field>
       </v-card-subtitle>
@@ -88,7 +92,7 @@
         large
         min-width="110px"
         rounded
-        @click="updated = true"
+        @click="updateProfile"
       >
         SAVE CHANGE
       </v-btn>
@@ -104,6 +108,46 @@ export default {
       timeout: 2500,
       updated: false,
     };
+  },
+  computed: {
+    profileInitials() {
+      return this.$store.state.profileInitials;
+    },
+    firstName: {
+      get() {
+        return this.$store.state.profileFirstName;
+      },
+      set(payload) {
+        this.$store.commit("changeFirstName", payload);
+      },
+    },
+    lastName: {
+      get() {
+        return this.$store.state.profileLastName;
+      },
+      set(payload) {
+        this.$store.commit("changeLastName", payload);
+      },
+    },
+    userName: {
+      get() {
+        return this.$store.state.profileUserName;
+      },
+      set(payload) {
+        this.$store.commit("changeUserName", payload);
+      },
+    },
+    email: {
+      get() {
+        return this.$store.state.profileEmail;
+      },
+    },
+  },
+  methods: {
+    updateProfile() {
+      this.$store.dispatch("updateUserSetting");
+      this.updated = true;
+    },
   },
 };
 </script>

@@ -32,13 +32,13 @@
             <v-row justify="center" style="min-height: 160px;">
               <v-col v-show="user">
                 <v-btn
-                  rounded
-                  height="50px"
-                  min-width="50px"
-                  color="primary font-bold"
+                  height="60px"
+                  min-width="60px"
+                  style="border-radius: 100%;"
+                  color="primary font-bold initial"
                   @click="expand = !expand"
                 >
-                  {{ this.$store.state.profileInitials }}
+                  {{ initials }}
                 </v-btn>
 
                 <!-- Profile details dropdown -->
@@ -57,18 +57,18 @@
                           style="width:100%; height:80%; border-radius:50%"
                         > -->
                         <v-avatar class="white ml-2">
-                          {{ this.$store.state.profileInitials }}
+                          {{ initials }}
                         </v-avatar>
                         <!-- </div> -->
                       </v-col>
                       <v-col cols="8">
                         <div>
-                          {{ this.$store.state.profileFirstName }}
-                          {{ this.$store.state.profileLastName }}
+                          {{ firstName }}
+                          {{ lastName }}
                         </div>
                         <!-- <p></p> -->
-                        <div>{{ this.$store.state.profileUserName }}</div>
-                        <div>{{ this.$store.state.profileEmail }}</div>
+                        <div>{{ userName }}</div>
+                        <div>{{ email }}</div>
                       </v-col>
                     </v-row>
                     <v-divider class="white mt-2"></v-divider>
@@ -78,8 +78,8 @@
                         <v-btn
                           small
                           plain
-                          to="/profile"
                           class="pl-0 black--text"
+                          @click="goToProfile"
                         >
                           <v-icon class="mr-1">mdi-account-tie</v-icon>
                           Profile</v-btn
@@ -151,8 +151,23 @@ export default {
     expand: false,
   }),
   computed: {
+    initials() {
+      return this.$store.state.profileInitials;
+    },
+    firstName() {
+      return this.$store.state.profileFirstName;
+    },
+    lastName() {
+      return this.$store.state.profileLastName;
+    },
+    userName() {
+      return this.$store.state.profileUserName;
+    },
     user() {
       return this.$store.state.user;
+    },
+    email() {
+      return this.$store.state.profileEmail;
     },
   },
   methods: {
@@ -162,6 +177,14 @@ export default {
       // location.reload();
       // window.location = window.location;
       // window.location.reload;
+    },
+    goToProfile() {
+      this.$router.push("/profile");
+      this.expand = false;
+    },
+    goToAdmin() {
+      this.$router.push("/admin");
+      this.expand = false;
     },
   },
 };
