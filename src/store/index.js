@@ -46,12 +46,16 @@ export default new Vuex.Store({
     profileInitials: null,
   },
   mutations: {
+    createFileURL(state, payload) {
+      state.blogPhotoFileURL = payload;
+    },
     newBlogPost(state, payload) {
       state.blogHTML = payload;
       console.log(state.blogHTML);
     },
     updateBlogTitle(state, payload) {
       state.blogTitle = payload;
+      console.log(state.blogTitle);
     },
     updateUser(state, payload) {
       state.user = payload;

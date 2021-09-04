@@ -13,6 +13,9 @@
             <v-file-input
               label="Upload Cover Photo"
               prepend-icon=""
+              type="file"
+              @change="fileChange"
+              ref="inputPhoto"
               outlined
               dense
             ></v-file-input>
@@ -61,6 +64,7 @@ Quill.register("modules/imageResize", ImageResize);
 export default {
   data() {
     return {
+      file: "",
       errorMsg: "",
       editorSettings: {
         modules: {
@@ -68,6 +72,12 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    fileChange() {
+      this.file = this.$refs.inputPhoto.files[0];
+      this.$store.commit("createFileURL", URL.createObjectURL(this.file));
+    },
   },
   computed: {
     profileId() {
