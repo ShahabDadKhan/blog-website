@@ -28,8 +28,8 @@ export default {
       this.$store.commit("updateUser", user);
       if (user) {
         this.$store.dispatch("getCurrentUser");
-        console.log("email", this.$store.state.profileEmail);
-        console.log("user1", this.$store.state.user);
+        // console.log("email", this.$store.state.profileEmail);
+        // console.log("user1", this.$store.state.user);
       }
     });
     this.checkRout();

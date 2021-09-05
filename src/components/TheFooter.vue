@@ -29,7 +29,7 @@
         <li>Login/Register</li>
         <!-- </ul> -->
       </v-col>
-      <v-col offset-sm="3" sm="3" cols="12">
+      <v-col offset-sm="3" sm="3" cols="12" class="pa-0">
         <span>
           Copyright&#169; 2021 All Rights Reserved
         </span>

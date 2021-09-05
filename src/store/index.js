@@ -46,6 +46,10 @@ export default new Vuex.Store({
     profileInitials: null,
   },
   mutations: {
+    fileNameChanged(state, payload) {
+      state.blogPhotoName = payload;
+      console.log("Photo Name", this.blogPhotoName);
+    },
     createFileURL(state, payload) {
       state.blogPhotoFileURL = payload;
     },
@@ -59,7 +63,7 @@ export default new Vuex.Store({
     },
     updateUser(state, payload) {
       state.user = payload;
-      console.log("user", this.user);
+      // console.log("user", this.user);
     },
     toggleEditPost(state, payload) {
       state.editPost = payload;
@@ -96,7 +100,7 @@ export default new Vuex.Store({
       const dbResults = await dataBase.get();
       commit("setProfileInfo", dbResults);
       commit("setProfileInitials");
-      console.log("user Info", dbResults);
+      // console.log("user Info", dbResults);
     },
     async updateUserSetting({ commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);

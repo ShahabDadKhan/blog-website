@@ -1,5 +1,21 @@
 <template>
   <v-container fluid class="my-16">
+    <v-dialog v-model="dialog" max-width="50%" class="">
+      <v-card height="500px" style="background-color:black">
+        <!-- <v-card-actions> -->
+        <v-btn
+          rounded
+          class="grey white--text"
+          style="top:15px; right:15px; z-index:1000; cursor:pointer; position:absolute"
+          icon
+          @click="dialog = false"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <!-- </v-card-actions> -->
+        <v-img :src="blogCover" height="100%" width="100%" class=""></v-img>
+      </v-card>
+    </v-dialog>
     <v-row style="height:100%">
       <v-col offset-sm="2" sm="8" cols="12">
         <v-row>
@@ -14,8 +30,9 @@
               label="Upload Cover Photo"
               prepend-icon=""
               type="file"
+              ref="blogPhoto"
               @change="fileChange"
-              ref="inputPhoto"
+              show-size
               outlined
               dense
             ></v-file-input>
@@ -23,7 +40,8 @@
           <v-col sm="12" md="2" cols="12">
             <v-btn
               rounded
-              class="primary"
+              class="primary "
+              @click="dialog = true"
               :disabled="!this.$store.state.blogPhotoFileURL"
               >Preview Photo
             </v-btn>
@@ -64,6 +82,7 @@ Quill.register("modules/imageResize", ImageResize);
 export default {
   data() {
     return {
+      dialog: false,
       file: "",
       errorMsg: "",
       editorSettings: {
@@ -75,11 +94,20 @@ export default {
   },
   methods: {
     fileChange() {
-      this.file = this.$refs.inputPhoto.files[0];
+      // this.file = this.$refs.blogPhoto.files[0];  This one is not working
+      this.file = this.$refs.blogPhoto.$refs.input.files[0];
+      const fileName = this.file.name;
+      this.$store.commit("fileNameChanged", this.file.name);
+      console.log("File Name", fileName);
+      // Creating the photo URL to activate the preview Photo Button
       this.$store.commit("createFileURL", URL.createObjectURL(this.file));
+      console.log("File URL", URL.createObjectURL(this.file));
     },
   },
   computed: {
+    blogCover() {
+      return this.$store.state.blogPhotoFileURL;
+    },
     profileId() {
       return this.$store.state.profileId;
     },
@@ -105,6 +133,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .imgDialog {
+//   max-width: 40% !important;
+//   max-height: 60% !important;
+// }
+
 .v-btn:last-child {
   @media (max-width: 324px) {
     // margin-top: 10px;
