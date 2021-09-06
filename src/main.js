@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import Vue2Editor from "vue2-editor";
 import vuetify from "./plugins/vuetify";
+import { VueEditor, Quill } from "vue2-editor";
 import firebase from "firebase/app";
 import "firebase/auth";
 
@@ -17,6 +18,8 @@ firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     new Vue({
       router,
+      VueEditor,
+      Quill,
       store,
       vuetify,
       render: (h) => h(App),

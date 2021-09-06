@@ -1,5 +1,21 @@
 <template>
   <v-container fluid class="my-16">
+    <v-snackbar
+      v-model="updated"
+      :timeout="timeout"
+      min-width="250px"
+      top
+      right
+    >
+      <span class="red--text">
+        {{ errorMsg }}
+      </span>
+      <!-- <v-spacer></v-spacer> -->
+
+      <v-btn color="pink" text @click="updated = false">
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-dialog v-model="dialog" max-width="50%" class="">
       <v-card height="500px" style="background-color:black">
         <!-- <v-card-actions> -->
@@ -13,6 +29,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <!-- </v-card-actions> -->
+        <p>{{ errorMsg }}</p>
         <v-img :src="blogCover" height="100%" width="100%" class=""></v-img>
       </v-card>
     </v-dialog>
@@ -40,7 +57,7 @@
           <v-col sm="12" md="2" cols="12">
             <v-btn
               rounded
-              class="primary "
+              class="primary"
               @click="dialog = true"
               :disabled="!this.$store.state.blogPhotoFileURL"
               >Preview Photo
@@ -54,16 +71,19 @@
           <v-col style="height:60vh">
             <vue-editor
               class="editorClass"
-              :editorOptions="editorSettings"
               v-model="blogHTML"
-              useCustomImageHandler
-            />
+              @image-added="imageHandler"
+            ></vue-editor>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="10">
-            <v-btn rounded class="primary">Publish Blog </v-btn>
-            <v-btn rounded class="primary ml-2">Post Preview </v-btn>
+            <v-btn rounded class="primary" @click="uploadBlog"
+              >Publish Blog
+            </v-btn>
+            <v-btn rounded class="primary ml-2" to="/blog-preview">
+              Preview Post
+            </v-btn>
           </v-col>
           <!-- <v-col cols="12" sm="12" md="2">
             <v-btn rounded class="primary">Post Preview </v-btn>
@@ -75,33 +95,106 @@
 </template>
 
 <script>
-import Quill from "quill";
-window.Quill = Quill;
-const ImageResize = require("quill-image-resize-module").default;
-Quill.register("modules/imageResize", ImageResize);
+// import Quill from "quill";
+// window.Quill = Quill;
+// const ImageResize = require("quill-image-resize-module").default;
+// Quill.register("modules/imageResize", ImageResize);
+import { VueEditor } from "vue2-editor";
+
+import firebase from "firebase/app";
+import db from "../firebase/firebaseInit";
+import "firebase/storage";
 export default {
+  components: {
+    VueEditor,
+  },
   data() {
     return {
+      timeout: 2500,
       dialog: false,
+      updated: false,
       file: "",
       errorMsg: "",
-      editorSettings: {
-        modules: {
-          ImageResize: {},
-        },
-      },
+      // editorSettings: {
+      //   modules: {
+      //     ImageResize: {},
+      //   },
+      // },
     };
   },
   methods: {
+    uploadBlog() {
+      if (this.blogTitle.length !== 0 && this.blogHTML.length !== 0) {
+        if (this.file) {
+          const storageRef = firebase.storage().ref();
+          const docRef = storageRef.child(
+            `document/BlogCoverPhoto/${this.$store.state.blogPhotoName}`
+          );
+          docRef.put(this.file).on(
+            "state_changed",
+            (snapshot) => {
+              console.log(snapshot);
+            },
+            (err) => {
+              console.log(err);
+            },
+
+            async () => {
+              const downloadURL = await docRef.getDownloadURL();
+              const timestamp = await Date.now;
+              const dataBase = await db.collection("blogPosts").doc();
+
+              dataBase.set({
+                blogID: dataBase.id,
+                blogHTML: this.blogHTML,
+                blogCoverPhoto: downloadURL,
+                blogCoverPhotoName: this.blogCoverPhotoName,
+                blogTitle: this.blogTitle,
+                profileId: this.profileId,
+                date: timestamp,
+              });
+              this.$router.push("/view-blog");
+            }
+          );
+          return;
+        } else {
+          this.updated = true;
+          this.errorMsg = "Please ensure that you have uploaded a cover photo!";
+        }
+      } else {
+        this.updated = true;
+        this.errorMsg =
+          "Please ensure that Blog Title & Blog Post has been filled";
+      }
+    },
     fileChange() {
       // this.file = this.$refs.blogPhoto.files[0];  This one is not working
       this.file = this.$refs.blogPhoto.$refs.input.files[0];
       const fileName = this.file.name;
-      this.$store.commit("fileNameChanged", this.file.name);
       console.log("File Name", fileName);
+      this.$store.dispatch("fileNameChange", this.fileName);
       // Creating the photo URL to activate the preview Photo Button
       this.$store.commit("createFileURL", URL.createObjectURL(this.file));
       console.log("File URL", URL.createObjectURL(this.file));
+    },
+    imageHandler(file, Editor, cursorLocation, resetUploader) {
+      console.log("Hello");
+      const storageRef = firebase.storage().ref();
+      const docRef = storageRef.child(`documents/blogPostPhotos/${file.name}`);
+      docRef.put(file).on(
+        "state_changed",
+        (snapshot) => {
+          console.log(snapshot);
+        },
+        (err) => {
+          console.log(err);
+        },
+        async () => {
+          const downloadURL = await docRef.getDownloadURL();
+          Editor.insertEmbed(cursorLocation, "image", downloadURL);
+          resetUploader();
+        }
+      );
     },
   },
   computed: {
@@ -110,6 +203,9 @@ export default {
     },
     profileId() {
       return this.$store.state.profileId;
+    },
+    blogCoverPhotoName() {
+      return this.$store.state.blogPhotoName;
     },
     blogTitle: {
       get() {

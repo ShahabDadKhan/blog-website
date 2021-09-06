@@ -46,12 +46,13 @@ export default new Vuex.Store({
     profileInitials: null,
   },
   mutations: {
-    fileNameChanged(state, payload) {
+    fileNameChange(state, payload) {
       state.blogPhotoName = payload;
       console.log("Photo Name", this.blogPhotoName);
     },
     createFileURL(state, payload) {
       state.blogPhotoFileURL = payload;
+      console.log("Photo URL", this.blogPhotoFileURL);
     },
     newBlogPost(state, payload) {
       state.blogHTML = payload;
@@ -111,6 +112,10 @@ export default new Vuex.Store({
       });
       commit("setProfileInitials");
     },
+
+    // fileNameChanged({ commit, payload }) {
+    //   commit("fileNameChange", payload);
+    // },
   },
   modules: {},
 });
