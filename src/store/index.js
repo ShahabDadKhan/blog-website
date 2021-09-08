@@ -48,11 +48,11 @@ export default new Vuex.Store({
   mutations: {
     fileNameChange(state, payload) {
       state.blogPhotoName = payload;
-      console.log("Photo Name", this.blogPhotoName);
+      console.log("Photo Name", state.blogPhotoName);
     },
     createFileURL(state, payload) {
       state.blogPhotoFileURL = payload;
-      console.log("Photo URL", this.blogPhotoFileURL);
+      console.log("Photo URL", state.blogPhotoFileURL);
     },
     newBlogPost(state, payload) {
       state.blogHTML = payload;

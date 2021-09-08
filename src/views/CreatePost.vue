@@ -47,6 +47,7 @@
               label="Upload Cover Photo"
               prepend-icon=""
               type="file"
+              persistent-hint
               ref="blogPhoto"
               @change="fileChange"
               show-size
@@ -167,12 +168,14 @@ export default {
           "Please ensure that Blog Title & Blog Post has been filled";
       }
     },
-    fileChange() {
+    fileChange(e) {
       // this.file = this.$refs.blogPhoto.files[0];  This one is not working
+      // this.file = e[0];
+      // console.log("files", e.files, "e", e);
       this.file = this.$refs.blogPhoto.$refs.input.files[0];
       const fileName = this.file.name;
       console.log("File Name", fileName);
-      this.$store.dispatch("fileNameChange", this.fileName);
+      this.$store.commit("fileNameChange", fileName);
       // Creating the photo URL to activate the preview Photo Button
       this.$store.commit("createFileURL", URL.createObjectURL(this.file));
       console.log("File URL", URL.createObjectURL(this.file));
